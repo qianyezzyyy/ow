@@ -1,0 +1,21 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up MSBuild path
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build solution
+      run: msbuild Imperial.sln /p:Configuration=Release /p:Platform="x64"
+    - name: Upload executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: Compiled-Executable
+        path: path/to/ow/executable.exe
